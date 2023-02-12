@@ -29,15 +29,17 @@ for columnNum in range(1, sheet.max_column + 1, 3):
         else:
             etf_all.get(sheet.cell(rowNum, columnNum).value)['content'].append(sheet.cell(1, columnNum).value)
 
+sorted_list = sorted(etf_all.items(), key=lambda x:len(x[1]['content']), reverse=True)
+
 # 輸出的結果
 new_sheet = wb.create_sheet('result')
 row = 1
 column = 1
-for stock_id in etf_all.keys():
-    new_sheet.cell(row, column).value = stock_id
-    new_sheet.cell(row, column + 1).value = etf_all.get(stock_id)['name']
-    new_sheet.cell(row, column + 2).value = len(etf_all.get(stock_id)['content'])
-    new_sheet.cell(row, column + 3).value = ','.join(str(etf_id) for etf_id in etf_all.get(stock_id)['content'])
+for t in sorted_list:
+    new_sheet.cell(row, column).value = t[0]
+    new_sheet.cell(row, column + 1).value = t[1]['name']
+    new_sheet.cell(row, column + 2).value = len(t[1]['content'])
+    new_sheet.cell(row, column + 3).value = ','.join(str(etf_id) for etf_id in t[1]['content'])
     row = row + 1
 
 # 存檔
