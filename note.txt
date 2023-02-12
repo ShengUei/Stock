@@ -1,0 +1,11 @@
+How to un:
+
+1. python -m venv .venv
+
+2. python -m pip install --upgrade pip
+
+3. python -m pip install -r requirements.txt
+
+How to export requirements.txt:
+
+1. python -m pip freeze > requirements.txt
